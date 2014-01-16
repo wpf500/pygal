@@ -198,6 +198,11 @@ class Svg(object):
         self.graph._tooltip_data(node, val, x, y, classes="centered")
         if angle >= 0.3:  # 0.3 radians is about 17 degrees
             self.graph._static_value(serie_node, val, x, y)
+        # put outside of circle
+        else:
+            x, y = diff(center, project(
+                radius * 1.1, start_angle + angle / 2))
+            self.graph._static_value(serie_node, val, x, y)
 
     def pre_render(self):
         """Last things to do before rendering"""
