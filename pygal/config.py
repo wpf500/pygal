@@ -217,6 +217,8 @@ class Config(object):
     y_label_rotation = Key(
         0, int, "Label", "Specify y labels rotation angles", "in degrees")
 
+    inner_label = Key(None, str, "Look", "Inner text for donut piecharts")
+
     ############ Value ############
     human_readable = Key(
         False, bool, "Value", "Display values in human readable format",

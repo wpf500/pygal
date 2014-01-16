@@ -33,6 +33,11 @@ class Pie(Graph):
 
     _adapters = [positive, none_to_zero]
 
+    @property
+    def _center(self):
+        return ((self.width - self.margin.x) / 2.,
+                (self.height - self.margin.y) / 2.)
+
     def slice(self, serie_node, start_angle, serie, total):
         """Make a serie slice"""
         dual = self._len > 1 and not self._order == 1
@@ -41,8 +46,7 @@ class Pie(Graph):
         serie_angle = 0
         total_perc = 0
         original_start_angle = start_angle
-        center = ((self.width - self.margin.x) / 2.,
-                  (self.height - self.margin.y) / 2.)
+        center = self._center
         radius = min(center)
         for i, val in enumerate(serie.values):
             perc = val / total
@@ -85,3 +89,9 @@ class Pie(Graph):
             angle = self.slice(
                 self._serie(index), current_angle, serie, total)
             current_angle += angle
+
+        if self.config.inner_label:
+            x, y = self._center
+            self.svg.node(self.nodes['plot'], 'text',
+                    class_='inner_label centered', x=x, y=y
+                ).text = self.config.inner_label
