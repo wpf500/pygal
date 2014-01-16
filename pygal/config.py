@@ -120,6 +120,10 @@ class Config(object):
         None, str, "Look",
         "Graph title.", "Leave it to None to disable title.")
 
+    source = Key(
+        None, str, "Look",
+        "Graph data source", "Leave it to None to disable source.")
+
     x_title = Key(
         None, str, "Look",
         "Graph X-Axis title.", "Leave it to None to disable X-Axis title.")

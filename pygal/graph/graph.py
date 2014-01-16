@@ -44,6 +44,7 @@ class Graph(BaseGraph):
         self._title()
         self._x_title()
         self._y_title()
+        self._source()
 
     def _axes(self):
         """Draw axes"""
@@ -411,6 +412,16 @@ class Graph(BaseGraph):
                 text.attrib['transform'] = "rotate(%d %f %f)" % (
                     -90, self._legend_at_left_width, yc)
                 text.text = title_line
+
+    def _source(self):
+        """ Add a data source """
+        if self.source:
+            self.svg.node(self.nodes['graph'], 'text', class_='source',
+                x=self.spacing,
+                y=(self.margin.top + self.view.height +
+                   self._x_title_height +
+                   self._x_labels_height + self.spacing)
+            ).text = 'Source: ' + self.source
 
     def _serie(self, serie):
         """Make serie node"""
