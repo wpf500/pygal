@@ -260,6 +260,8 @@ class Config(object):
     no_data_text = Key(
         "No data", str, "Text", "Text to display when no data is given")
 
+    font_family = Key('monospace', str, "Text", "Font family")
+
     label_font_size = Key(10, int, "Text", "Label font size")
 
     major_label_font_size = Key(10, int, "Text", "Major label font size")

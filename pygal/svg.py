@@ -82,6 +82,7 @@ class Svg(object):
                         f.read(),
                         style=self.graph.config.style,
                         colors=colors,
+                        font_family=self.graph.config.font_family,
                         font_sizes=self.graph.config.font_sizes(),
                         id=self.id)
                     if not self.graph.pretty_print:
