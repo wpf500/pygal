@@ -146,7 +146,7 @@ class Svg(object):
                 extras[key1], extras[key2] = attr2, attr1
         return self.node(parent, tag, attrib, **extras)
 
-    def line(self, node, coords, close=False, **kwargs):
+    def line(self, node, coords, close=False, label=None, **kwargs):
         """Draw a svg line"""
         line_len = len(coords)
         if line_len < 2:
@@ -163,6 +163,11 @@ class Svg(object):
                          if None not in c])
         self.node(node, 'path',
                   d=root % (origin, line), **kwargs)
+
+        if label:
+            coord = coords[int(len(coords)/2)]
+            self.node(node, 'text', x=coord[0], y=coord[1] - 10, class_='centered'
+                ).text = label
 
     def slice(
             self, serie_node, node, radius, small_radius,

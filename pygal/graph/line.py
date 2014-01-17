@@ -99,7 +99,8 @@ class Line(Graph):
                 view_values = self._fill(view_values)
             self.svg.line(
                 serie_node['plot'], view_values, close=self._self_close,
-                class_='line reactive' + (' nofill' if not self.fill else ''))
+                class_='line reactive' + (' nofill' if not self.fill else ''),
+                label=serie.title if self.inline_legend else None)
 
     def _compute(self):
         # X Labels
