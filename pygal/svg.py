@@ -207,7 +207,8 @@ class Svg(object):
     def pre_render(self):
         """Last things to do before rendering"""
         self.add_styles()
-        self.add_scripts()
+        if not self.graph.config.disable_js:
+            self.add_scripts()
         self.root.set(
             'viewBox', '0 0 %d %d' % (self.graph.width, self.graph.height))
         if self.graph.explicit_size:

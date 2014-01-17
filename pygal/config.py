@@ -302,6 +302,9 @@ class Config(object):
         "It can be a filepath or an external link",
         str)
 
+    disable_js = Key(
+        False, bool, "Misc", "Don't add any JavaScript")
+
     disable_xml_declaration = Key(
         False, bool, "Misc",
         "Don't write xml declaration and return str instead of string",
