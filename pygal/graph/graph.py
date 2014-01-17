@@ -411,7 +411,7 @@ class Graph(BaseGraph):
             yc = self.margin.top + self.view.height / 2
             for i, title_line in enumerate(self.y_title, 1):
                 text = self.svg.node(
-                    self.nodes['title'], 'text', class_='title',
+                    self.nodes['title'], 'text', class_='centered',
                     x=self._legend_at_left_width,
                     y=i * (self.title_font_size + self.spacing) + yc
                 )
