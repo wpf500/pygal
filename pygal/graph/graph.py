@@ -380,10 +380,17 @@ class Graph(BaseGraph):
         """Make the title"""
         if self.title:
             for i, title_line in enumerate(self.title, 1):
-                self.svg.node(
+                s = ''
+                if ':' in title_line:
+                    title_line, s = title_line.split(':')
+                    title_line += ':'
+                t = self.svg.node(
                     self.nodes['title'], 'text', class_='title',
                     x=self.spacing, y=i * (self.title_font_size + self.spacing)
-                ).text = title_line
+                )
+                t.text = title_line
+                if s:
+                    self.svg.node(t, 'tspan', class_='subtitle').text = s
 
     def _x_title(self):
         """Make the X-Axis title"""
