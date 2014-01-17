@@ -51,7 +51,7 @@ class Pie(Graph):
             perc = val / total
             angle = 2 * pi * perc
             serie_angle += angle
-            val = '{0:.2%}'.format(perc)
+            val = '{0:.1%}'.format(perc)
             metadata = serie.metadata.get(i)
             slice_ = decorate(
                 self.svg,
@@ -73,7 +73,7 @@ class Pie(Graph):
             total_perc += perc
 
         if dual:
-            val = '{0:.2%}'.format(total_perc)
+            val = '{0:.1%}'.format(total_perc)
             self.svg.slice(serie_node,
                            self.svg.node(slices, class_="big_slice"),
                            radius * .9, 0, serie_angle,
