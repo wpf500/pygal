@@ -382,8 +382,7 @@ class Graph(BaseGraph):
             for i, title_line in enumerate(self.title, 1):
                 self.svg.node(
                     self.nodes['title'], 'text', class_='title',
-                    x=self.width / 2,
-                    y=i * (self.title_font_size + self.spacing)
+                    x=self.spacing, y=i * (self.title_font_size + self.spacing)
                 ).text = title_line
 
     def _x_title(self):
