@@ -20,6 +20,7 @@
 Charts styling
 """
 from __future__ import division
+from itertools import chain, repeat, islice
 from pygal.util import cycle_fill
 from pygal import colors
 from pygal.colors import darken, lighten
@@ -42,7 +43,8 @@ class Style(object):
                 '#ff5995', '#b6e354', '#feed6c', '#8cedff', '#9e6ffe',
                 '#899ca1', '#f8f8f2', '#bf4646', '#516083', '#f92672',
                 '#82b414', '#fd971f', '#56c2d6', '#808384', '#8c54fe',
-                '#465457')):
+                '#465457'),
+            text_colors=None):
         self.background = background
         self.plot_background = plot_background
         self.foreground = foreground
@@ -52,6 +54,7 @@ class Style(object):
         self.opacity_hover = opacity_hover
         self.transition = transition
         self.colors = colors
+        self.text_colors = text_colors or tuple()
 
     def get_colors(self, prefix):
         """Get the css color list"""
@@ -64,6 +67,15 @@ class Style(object):
                 '  fill: {1};\n'
                 '}}\n') % prefix).format(*tupl)
         return '\n'.join(map(color, enumerate(cycle_fill(self.colors, 16))))
+
+    def get_text_colors(self, prefix):
+        def color(tupl):
+            return ((
+                '%s.text-overlay .color-{0} text {{\n'
+                '   fill: {1};\n'
+                '}}\n') % prefix).format(*tupl)
+        text_colors = chain(self.text_colors, repeat(self.foreground_light))
+        return '\n'.join(map(color, enumerate(islice(text_colors, 16))))
 
     def to_dict(self):
         config = {}

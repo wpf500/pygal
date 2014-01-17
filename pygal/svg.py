@@ -67,6 +67,7 @@ class Svg(object):
     def add_styles(self):
         """Add the css to the svg"""
         colors = self.graph.config.style.get_colors(self.id)
+        text_colors = self.graph.config.style.get_text_colors(self.id)
         all_css = []
         for css in ['base.css'] + list(self.graph.css):
             if '://' in css:
@@ -82,6 +83,7 @@ class Svg(object):
                         f.read(),
                         style=self.graph.config.style,
                         colors=colors,
+                        text_colors=text_colors,
                         font_family=self.graph.config.font_family,
                         font_sizes=self.graph.config.font_sizes(),
                         id=self.id)
