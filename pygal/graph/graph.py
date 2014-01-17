@@ -417,9 +417,7 @@ class Graph(BaseGraph):
         if self.source:
             self.svg.node(self.nodes['graph'], 'text', class_='source',
                 x=self.spacing,
-                y=(self.margin.top + self.view.height +
-                   self._x_title_height +
-                   self._x_labels_height + self.spacing)
+                y=(self.height - self.spacing)
             ).text = 'Source: ' + self.source
 
     def _serie(self, serie):

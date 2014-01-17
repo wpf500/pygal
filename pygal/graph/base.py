@@ -167,6 +167,9 @@ class BaseGraph(object):
             self.margin.left += height
             self._y_title_height = height + self.spacing
 
+        if self.source:
+            self.margin.bottom += self.spacing
+
     @cached_property
     def _legends(self):
         """Getter for series title"""
