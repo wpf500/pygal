@@ -209,8 +209,17 @@ class Svg(object):
 
         if label:
             x, y = diff(center, project(radius * 1.1, mid_angle))
-            self.node(node, 'text', x=x, y=y,
-                    **{'text-anchor': 'start' if x > center[0] else 'end'}
+
+            if x < center[0]:
+                width = x
+                x = 0
+                cls = 'right'
+            else:
+                width = self.graph.width - x
+                cls = ''
+
+            fo = self.node(node, 'foreignObject', x=x, y=y, width=width, height=100)
+            self.node(fo, 'p', class_=cls, xmlns='http://www.w3.org/1999/xhtml'
                 ).text = label
 
     def pre_render(self):
