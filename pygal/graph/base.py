@@ -89,24 +89,25 @@ class BaseGraph(object):
     def _compute_margin(self):
         """Compute graph margins from set texts"""
         self._legend_at_left_width = 0
-        for series_group in (self.series, self.secondary_series):
-            if self.show_legend and series_group:
-                h, w = get_texts_box(
-                    map(lambda x: truncate(x, self.truncate_legend or 15),
-                        cut(series_group, 'title')),
-                    self.legend_font_size)
-                if self.legend_at_bottom:
-                    h_max = max(h, self.legend_box_size)
-                    self.margin.bottom += self.spacing + h_max * round(
-                        sqrt(self._order) - 1) * 1.5 + h_max
-                else:
-                    if series_group is self.series:
-                        legend_width = self.spacing + w + self.legend_box_size
-                        self.margin.left += legend_width
-                        self._legend_at_left_width += legend_width
+        if self.show_legend and not self.inline_legend:
+            for series_group in (self.series, self.secondary_series):
+                if series_group:
+                    h, w = get_texts_box(
+                        map(lambda x: truncate(x, self.truncate_legend or 15),
+                            cut(series_group, 'title')),
+                        self.legend_font_size)
+                    if self.legend_at_bottom:
+                        h_max = max(h, self.legend_box_size)
+                        self.margin.bottom += self.spacing + h_max * round(
+                            sqrt(self._order) - 1) * 1.5 + h_max
                     else:
-                        self.margin.right += (
-                            self.spacing + w + self.legend_box_size)
+                        if series_group is self.series:
+                            legend_width = self.spacing + w + self.legend_box_size
+                            self.margin.left += legend_width
+                            self._legend_at_left_width += legend_width
+                        else:
+                            self.margin.right += (
+                                self.spacing + w + self.legend_box_size)
 
         for xlabels in (self._x_labels, self._x_2nd_labels):
             if xlabels:

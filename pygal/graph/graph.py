@@ -282,7 +282,7 @@ class Graph(BaseGraph):
 
     def _legend(self):
         """Make the legend box"""
-        if not self.show_legend:
+        if not self.show_legend or self.inline_legend:
             return
         truncation = self.truncate_legend
         if self.legend_at_bottom:

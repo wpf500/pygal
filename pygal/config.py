@@ -158,6 +158,9 @@ class Config(object):
     show_legend = Key(
         True, bool, "Look", "Set to false to remove legend")
 
+    inline_legend = Key(
+        False, bool, "Look", "Set true to show legend inline")
+
     legend_at_bottom = Key(
         False, bool, "Look", "Set to true to position legend at bottom")
 

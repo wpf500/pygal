@@ -164,7 +164,7 @@ class Svg(object):
 
     def slice(
             self, serie_node, node, radius, small_radius,
-            angle, start_angle, center, val):
+            angle, start_angle, center, val, label=None):
         """Draw a pie slice"""
         project = lambda rho, alpha: (
             rho * sin(-alpha), rho * cos(-alpha))
@@ -192,17 +192,24 @@ class Svg(object):
                           to[2],
                           get_radius(small_radius), int(angle > pi), to[3]),
                       class_='slice reactive tooltip-trigger')
-        x, y = diff(center, project(
-            (radius + small_radius) / 2, start_angle + angle / 2))
+
+        mid_angle = start_angle + angle / 2
+
+        x, y = diff(center, project((radius + small_radius) / 2, mid_angle))
 
         self.graph._tooltip_data(node, val, x, y, classes="centered")
         if angle >= 0.3:  # 0.3 radians is about 17 degrees
             self.graph._static_value(serie_node, val, x, y)
         # put outside of circle
         else:
-            x, y = diff(center, project(
-                radius * 1.1, start_angle + angle / 2))
+            x, y = diff(center, project(radius * 1.1, mid_angle))
             self.graph._static_value(serie_node, val, x, y)
+
+        if label:
+            x, y = diff(center, project(radius * 1.1, mid_angle))
+            self.node(node, 'text', x=x, y=y,
+                    **{'text-anchor': 'start' if x > center[0] else 'end'}
+                ).text = label
 
     def pre_render(self):
         """Last things to do before rendering"""

@@ -66,7 +66,8 @@ class Pie(Graph):
 
             self.svg.slice(
                 serie_node, slice_, big_radius, small_radius,
-                angle, start_angle, self._center, val)
+                angle, start_angle, self._center, val,
+                serie.title if self.config.inline_legend else None)
 
             start_angle += angle
             total_perc += perc
