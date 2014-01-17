@@ -22,7 +22,7 @@ Pie chart
 """
 
 from __future__ import division
-from pygal.util import decorate
+from pygal.util import cached_property, decorate
 from pygal.graph.graph import Graph
 from pygal.adapters import positive, none_to_zero
 from math import pi
@@ -33,7 +33,7 @@ class Pie(Graph):
 
     _adapters = [positive, none_to_zero]
 
-    @property
+    @cached_property
     def _center(self):
         return ((self.width - self.margin.x) / 2.,
                 (self.height - self.margin.y) / 2.)
@@ -46,8 +46,7 @@ class Pie(Graph):
         serie_angle = 0
         total_perc = 0
         original_start_angle = start_angle
-        center = self._center
-        radius = min(center)
+        radius = min(self._center)
         for i, val in enumerate(serie.values):
             perc = val / total
             angle = 2 * pi * perc
@@ -67,7 +66,8 @@ class Pie(Graph):
 
             self.svg.slice(
                 serie_node, slice_, big_radius, small_radius,
-                angle, start_angle, center, val)
+                angle, start_angle, self._center, val)
+
             start_angle += angle
             total_perc += perc
 
@@ -76,7 +76,7 @@ class Pie(Graph):
             self.svg.slice(serie_node,
                            self.svg.node(slices, class_="big_slice"),
                            radius * .9, 0, serie_angle,
-                           original_start_angle, center, val)
+                           original_start_angle, self._center, val)
         return serie_angle
 
     def _plot(self):
